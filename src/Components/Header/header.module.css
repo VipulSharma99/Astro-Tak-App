@@ -1,0 +1,11 @@
+.head{
+    display: flex;
+    flex-direction: row;
+    position: fixed;
+    z-index: 1;
+    top: 0px;
+    justify-content: space-between;
+    padding: 10px;
+    width: 100%;
+    background-color: white;
+}

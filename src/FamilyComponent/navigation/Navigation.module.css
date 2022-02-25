@@ -1,0 +1,21 @@
+.nav{
+    top: 65px;
+    /* width:100%; */
+    position: fixed;
+    text-align: center;
+    z-index: 1;
+}
+.cols{
+    padding:10px;
+    background-color: white;
+} 
+.sel{
+    color: orange;
+    border-bottom: 3px solid;
+    border-color: orange;
+}
+.selButton{
+    background-color: orange;
+    color: white;
+    border-radius: 5px;
+}

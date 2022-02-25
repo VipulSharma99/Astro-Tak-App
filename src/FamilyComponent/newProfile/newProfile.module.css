@@ -1,0 +1,59 @@
+.head{
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    width: 95%;
+    margin-top: 190px;
+    align-items: flex-end;
+}
+.formMain{
+    display: flex;
+    justify-content: center;
+}
+.form{
+    width: 90%;
+}
+.text{
+    width: 100%;
+}
+
+.name{
+    width: 95% !important;
+    height: 35px;
+    border-radius: 4px 4px;
+}
+
+.rowcenter{
+    justify-content: center;
+}
+
+.date{
+    width: -webkit-fill-available;
+    height: 35px;
+}
+
+.time{
+    width: -webkit-fill-available;
+    height: 35px;
+}
+
+.gender{
+    width: -webkit-fill-available;
+    height: 35px;
+}
+
+.relation{
+    width: -webkit-fill-available;
+    height: 35px;
+}
+
+.buttoncenter{
+    width: inherit;
+    display: flex;
+    justify-content: center;
+}
+
+.datelength{
+    display: flex;
+    justify-content: flex-end;
+}

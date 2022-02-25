@@ -1,0 +1,42 @@
+.listStyle{
+    margin-top: 10px !important;
+    width: 90% !important;
+}
+.listItem{
+    padding:10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    box-shadow: 1px 1px 3px 3px wheat;
+    margin-bottom: 15px;
+}
+.nav{
+    display: flex;
+    justify-content: center;
+}
+.head{
+    color:blue;
+}
+.balance{
+    background-color: rgba(16, 68, 235,0.34);
+    margin-top: 190px;
+    padding: 15px;
+    width: 90%;
+    color:blue;
+    margin-left: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.profileButton{
+    display: flex;
+    justify-content: center;
+}
+.modelbtn{
+    display: flex;
+    flex-flow: row;
+    justify-content: space-around;
+}
+.left{
+    display: flex;
+    justify-content: flex-end;
+}
