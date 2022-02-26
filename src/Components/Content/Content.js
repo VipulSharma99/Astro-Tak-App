@@ -1,13 +1,16 @@
 import React , {useEffect, useState} from 'react';
 import classes from './content.module.css';
-import {MenuItem, FormControl, Select, TextField, Button} from '@mui/material';
+import {MenuItem, FormControl, Select, TextField, Button, Fab} from '@mui/material';
 import * as api from '../../api';
+import MenuIcon from '@mui/icons-material/Menu';
+import LiveHelpRoundedIcon from '@mui/icons-material/LiveHelpRounded';
+import {Row,Col} from 'react-bootstrap';
 
 const Content = ()=>{
     const [category, setCategory] = useState('');
-    const [data,setData] = useState();
+    const [data,setData] = useState("");
     const [catList,setCatList] = useState();
-    const [ques,setQues] = useState();
+    const [ques,setQues] = useState("");
     const [cost, setCost] = useState();
     const [priceList,setPriceList] = useState();
     
@@ -73,6 +76,7 @@ const Content = ()=>{
           multiline
           rows={4}
           value={ques}
+          label='.'
           placeholder="Type a question here"
           onChange={(e)=>{questionhandler(e)}}
           style={{marginTop:'10px'}}
@@ -83,7 +87,11 @@ const Content = ()=>{
         </strong>
         {category && data[category].map((item,index)=>{
 
-            return <div key={item+index} className={classes.question} onClick={()=>{quesSelectHandler(item)}}>{item}<hr /></div>
+            return <div key={item+index} className={classes.question} onClick={()=>{quesSelectHandler(item)}}>
+                <Row>
+                    <Col xs='2'><LiveHelpRoundedIcon fontSize='large' style={{color:'orange'}} /></Col>
+                    <Col>{item}</Col>
+                </Row><hr /></div>
         })}
 
         <p>Seeking accurate answers to difficult questions troubling your mind? Ask credible astrologers to know what future has in store for you.</p>
@@ -93,6 +101,12 @@ const Content = ()=>{
             <li>You can seek answers to any part of your life and for most pressing issues.</li>
             <li>Our team of Vedic astrologers will not just pronoun answers but also suggest a remedial solution.</li>
         </ul>
+        <div className={classes.burgerBtn}>
+            <Fab color="primary" aria-label="add" style={{backgroundColor:'orange'}} >
+                <MenuIcon />
+            </Fab>
+        </div>
+        
         <div className={classes.cart}>
             <strong style={{color:'white'}}>&#8377; {cost || 0} (1 Question on {category || 'No category'}) </strong>
             <Button variant="outlined" style={{backgroundColor:'white'}}><strong>Ask Now</strong></Button>

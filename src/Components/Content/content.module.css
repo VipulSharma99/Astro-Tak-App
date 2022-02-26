@@ -20,17 +20,21 @@
     display: flex;
     flex-direction: row;
     position: fixed;
-    /* top: 65px; */
     bottom:70px;
     margin-left: -20px;
     justify-content: space-between;
     padding: 15px;
-    /* padding-left: 20px;
-    padding-right: 20px; */
     width: 100%;
     border-radius: 5px;
 }
 .Textlength{
     display: flex;
     justify-content: end;
+}
+.burgerBtn{
+    display: flex;
+    justify-content: end;
+    width: 90%;
+    position: fixed !important;
+    bottom: 146px;
 }

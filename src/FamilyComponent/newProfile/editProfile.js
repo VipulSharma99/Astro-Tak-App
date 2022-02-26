@@ -6,6 +6,8 @@ import {useDispatch,useSelector} from 'react-redux';
 import {ToggleButton, ToggleButtonGroup, Button} from '@mui/material';
 import {Row,Col} from 'react-bootstrap';
 import * as api from '../../api';
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
 
 const NewProfile = () =>{
     const dispatch = useDispatch();
@@ -16,12 +18,14 @@ const NewProfile = () =>{
     const [hour,setHour] = useState("");
     const [minute,setMinute] = useState("");
     const [amp,setamp] = useState("AM");
-    const [birth,setBirth] = useState("");
+    const [birth,setBirth] = useState();
     const [gender,setGender] = useState("MALE");
     const [relation,setRelation] = useState("");
     const stateUuid =useSelector((state) => state.uuid);
     const [data1,setData]= useState();
     const [isSubmit,setIsSubmit] = useState(false);
+    const [cityList,setCityList] = useState([]);
+    const [placeId, setPlaceId] = useState();
 
     useEffect(async()=>{
         let dta = await api.familyLst();
@@ -40,7 +44,10 @@ const NewProfile = () =>{
             setamp(item.birthDetails.meridiem)
             setBirth(item.birthPlace.placeName)
             setGender(item.gender)
-            setRelation(item.relation)
+            setRelation(item.relationId)
+            setBirth(item.birthPlace.placeName)
+            setPlaceId(item.birthPlace.placeId)
+
         })
     },[])
     const backHandler = () =>{
@@ -77,8 +84,16 @@ const NewProfile = () =>{
     const amphandle = (event, newAlignment) => {
         setamp(newAlignment);
       };
-    const birthhandler = (e)=>{
-        setBirth(e.target.value);
+      const birthhandler = async(e)=>{
+        let location = await api.getLocation(e.target.value);
+        let birthLoc = location?.data?.data?.map((item)=>{
+            return{'label':item.placeName,'placeId':item.placeId}
+        })
+        setCityList(birthLoc || []);
+    }
+    const selecthandler = (e)=>{
+        setBirth(e.label)
+        setPlaceId(e.placeId)
     }
     const genderhandler = (e)=>{
         setGender(e.target.value);
@@ -92,7 +107,7 @@ const NewProfile = () =>{
         const data=JSON.stringify({
             "uuid": stateUuid,
             "relation": relation,
-            "relationId": data1.relationId,
+            "relationId": relation,
             "firstName": name.split(" ")[0],
             "middleName": null,
             "lastName": name?.split(" ")[1],
@@ -109,7 +124,7 @@ const NewProfile = () =>{
             },
             "birthPlace": {
             "placeName": birth,
-            "placeId": data1.birthPlace.placeId
+            "placeId": placeId
             }
         })
         const datat= await api.updateProfile(stateUuid,data);
@@ -178,8 +193,18 @@ const NewProfile = () =>{
                     </Row>
                     <Row className={classes.rowcenter}>
                         <label className='mb-1'>Place of Birth</label><br />
-                        <input type="text" onChange={(e)=>{birthhandler(e)}} value={birth} className={classes.name} required style={isSubmit&&birth==''?{borderColor:'red'}:null}/>
-                        {isSubmit&&birth==''?<p style={{color:'red'}}>Please select a city</p>:null}
+                        {birth?
+                        <Autocomplete
+                            defaultValue={birth}
+                            disablePortal
+                            id="combo-box-demo"
+                            options={cityList} 
+                            onChange={ (e, obj) => { selecthandler(obj) }}              
+                            renderInput={(params) => 
+                                <TextField {...params} label="." value={birth} onChange={(e)=>{birthhandler(e)}} />}
+                            />
+                            :null}
+                            {isSubmit&&birth==''?<p style={{color:'red'}}>Please select a city</p>:null}
                     </Row>
                     <Row className="mt-1 mb-1">
                         <Col xs="6">
@@ -193,9 +218,28 @@ const NewProfile = () =>{
                         </div>
                         </Col>
                         <Col xs='6'>
-                            <label className='mb-1'>Relation</label><br />
-                            <input type="text" onChange={(e)=>{relationhandler(e)}} value={relation} className={classes.relation} required style={isSubmit&&relation==''?{borderColor:'red'}:null}/>
-                            {isSubmit&&birth==''?<p style={{color:'red'}}>Invalid Relation</p>:null}
+                            <label className='mb-1'>Relation</label>
+                            <div>
+                            <select value={relation} className={classes.gender} onChange={(e)=>{relationhandler(e)}} required style={isSubmit&&gender==''?{borderColor:'red'}:null}>
+                                <option value="1">Father</option>
+                                <option value="2">Mother</option>
+                                <option value="3">Brother</option>
+                                <option value="4">Sister</option>
+                                <option value="5">Spouse</option>
+                                <option value="6">Son</option>
+                                <option value="7">Daughter</option>
+                                <option value="8">Father in law</option>
+                                <option value="9">Mother in law</option>
+                                <option value="10">Brother in law</option>
+                                <option value="11">Sister in law</option>
+                                <option value="12">Daughter in law</option>
+                                <option value="13">Uncle</option>
+                                <option value="14">Aunt</option>
+                                <option value="15">Friend</option>
+                                <option value="16">Fiance</option>
+                            </select>
+                            {isSubmit&&relation==''?<p style={{color:'red'}}>Invalid Relation</p>:null}                           
+                            </div>
                         </Col>
                     </Row>
                     <div className={classes.buttoncenter+" mt-3"}>

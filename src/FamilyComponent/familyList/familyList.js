@@ -67,7 +67,7 @@ const FamilyList =()=> {
               </ListItem>
             {familyList?.map((item,i)=>{
                 return <ListItem disablePadding key={Math.random()} className={classes.listItem}>
-                  <ListItemText primary={item.firstName} />
+                  <ListItemText primary={item.fullName.slice(0,7)} />
                   <ListItemText primary={item.dateAndTimeOfBirth.split("T")[0]} />
                   <ListItemText primary={item.dateAndTimeOfBirth.split("T")[1].slice(0,5)} />
                   <ListItemText primary={item.relation} style={{width:'20px'}} />
