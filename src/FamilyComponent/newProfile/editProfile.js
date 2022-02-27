@@ -128,7 +128,6 @@ const NewProfile = () =>{
             }
         })
         const datat= await api.updateProfile(stateUuid,data);
-        console.log("conform : ",datat);
         dispatch(setView(''));
     }
 

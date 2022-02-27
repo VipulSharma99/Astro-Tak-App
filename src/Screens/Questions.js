@@ -6,7 +6,7 @@ import Content from '../Components/Content/Content';
 
 const Questions=()=> {
   return (
-    <div style={{maxWidth:'500px'}} >
+    <div>
       <Header />
       <Balance />
       <Content />

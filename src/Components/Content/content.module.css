@@ -9,6 +9,7 @@
 }
 .question{
     color:lightslategrey;
+    cursor: pointer;
 }
 .note{
     color: rgba(247,58,16,0.84);
